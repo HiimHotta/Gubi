@@ -7,8 +7,9 @@
 #include "lista.h" //nao lembro se eh esse msm
 
 Lista cria () {
-  Lista tmp = malloc sizeof (Elo);
-  tmp->next = NULL;
+  Lista tmp;
+  tmp.cabec = malloc (sizeof (Elo));
+  tmp.cabec->next = NULL;
   return tmp;
 }
 
@@ -49,4 +50,13 @@ Elemento* buscaR (Lista l, char* n) {
 
 Elemento* retira(Lista l, Elemento* val) {
 
+}
+
+int main () {
+  Lista aux = cria ();
+  aux.cabec->val = malloc (sizeof (Elemento));
+  aux.cabec->val->n[0] = 'a';
+  aux.cabec->val->n[1] = 'b';
+  printf ("%c %c \n", aux.cabec->val->n[0], aux.cabec->val->n[1]);
+  return 0;
 }
