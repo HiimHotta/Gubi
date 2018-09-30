@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #define MAXSTRING 80
 
-typedef struct elo {
-  struct elo * next ;
-  Elemento * val ;
-} Elo ;
+typedef struct {
+char n [80];
+} Elemento ;
