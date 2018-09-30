@@ -7,7 +7,7 @@
 #include "lista.h" //nao lembro se eh esse msm
 
 Lista cria () {
-  Lista tmp = malloc (sizeof (Elo));
+  Lista tmp = malloc sizeof (Elo);
   tmp->next = NULL;
   return tmp;
 }
