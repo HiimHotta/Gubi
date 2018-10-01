@@ -25,6 +25,10 @@ TabSim cria (int tam) {
   TabSim tmp;
   tmp.tab = malloc (tam * sizeof (Cell));
   tmp.tam = tam;
+  for (int i = 0; i < tam; i++) {
+  	tmp.tab[i].key = NULL;
+  	tmp.tab[i].val = NULL;
+  }
   return tmp;
 }
 
@@ -74,7 +78,7 @@ int main () {
   while (insere (tab, "hahaha", ele) != 0) {
   	printf ("debug2");
   	Elemento* tmp = busca (tab, "hahaha");
-  	//printf ("%s\n", tmp->n);
+  	printf ("%s\n", tmp->n);
   }
   return 0;
 }
