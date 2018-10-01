@@ -69,6 +69,7 @@ int main () {
   Elemento* ele;
   ele = malloc (sizeof (Elemento));
   ele->n[0] = 'a';
+  printf("%s\n", ele->n);
   while (insere (tab, "hahaha", ele) != 0) {
   	Elemento* tmp = busca (tab, "hahaha");
   	printf ("%s\n", tmp->n);
