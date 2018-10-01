@@ -33,6 +33,7 @@ TabSim cria (int tam) {
 int insere(TabSim t, char *n, Elemento *val) {
   unsigned index = convert (n, t.tam);
   if (t.tab[index].key == NULL) {
+  	printf ("debug");
   	strcpy (t.tab[index].key, n);
   	return 1;
   }
@@ -71,6 +72,7 @@ int main () {
   ele->n[0] = 'a';
   printf("%s\n", ele->n);
   while (insere (tab, "hahaha", ele) != 0) {
+  	printf ("debug2");
   	Elemento* tmp = busca (tab, "hahaha");
   	printf ("%s\n", tmp->n);
   }
