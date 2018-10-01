@@ -68,7 +68,7 @@ int main () {
   TabSim tab = cria (10);
   Elemento* ele;
   ele = malloc (sizeof (Elemento));
-  ele.n[i] = 'a';
+  ele->n[0] = 'a';
   while (insere (tab, "hahaha", ele) != 0) {
   	Elemento* tmp = busca (tab, "hahaha");
   	printf ("%s\n", tmp->n);
