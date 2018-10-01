@@ -66,10 +66,11 @@ int retira(TabSim t, char *n) {
 
 int main () {
   TabSim tab = cria (10);
-  Elemento ele;
+  Elemento* ele;
+  ele = malloc sizeof (Elemento);
   ele.n = "teste";
-  while (insere (tab, "hahaha", ele.n) != 0) {
-  	Elemento* tmp = busca (tab, i);
+  while (insere (tab, "hahaha", ele) != 0) {
+  	Elemento* tmp = busca (tab, "hahaha");
   	printf ("%s\n", tmp->n);
   }
   return 0;
