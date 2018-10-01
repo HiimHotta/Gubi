@@ -66,4 +66,12 @@ int retira(TabSim t, char *n) {
 
 int main () {
   TabSim tab = cria (10);
+  Elemento ele;
+  ele.n = "teste"
+  char i = 'a';
+  while (insere (tab, i, ele.n) != 0) {
+  	Elemento* tmp = busca (t, i);
+  	printf ("%s", tmp->n);
+  }
+  return 0
 }
