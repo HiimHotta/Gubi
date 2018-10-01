@@ -22,7 +22,7 @@ unsigned convert (char* s, int tam) {
 }
 
 TabSim cria (int tam) {
-  TabSim tmp
+  TabSim tmp;
   tmp.tab = malloc (tam * sizeof (Cell));
   tmp.tam = tam;
   return tmp;
@@ -43,14 +43,14 @@ int insere(TabSim t, char *n, Elemento *val) {
 void destroi (TabSim t) {
   free (t.tab);
   t.tab = NULL;
-  tam = 0;
+  t.tam = 0;
 }
 
 Elemento* busca(TabSim t, char *n) {
   unsigned index = convert (n, t.tam);
-  if (t.tab[index] != NULL) 
-  	if (strcmp (t.tab[index]->key, n) == 0)
-  		return t.tab[index]->val;
+  if (t.tab[index].key != NULL) 
+  	if (strcmp (t.tab[index].key, n) == 0)
+  		return t.tab[index].val;
   return NULL;
 }
 
@@ -58,8 +58,8 @@ Elemento* busca(TabSim t, char *n) {
 /*nao tiver, retorna falso (0)                 */
 int retira(TabSim t, char *n) {
   unsigned index = convert (n, t.tam);
-  if (t.tab[index] != NULL) 
-  	if (strcmp (t.tab[index]->key, n) == 0)
+  if (t.tab[index].key != NULL) 
+  	if (strcmp (t.tab[index].key, n) == 0)
   		return 1;
   return 0;
 }
