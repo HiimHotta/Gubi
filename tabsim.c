@@ -68,11 +68,9 @@ int main () {
   TabSim tab = cria (10);
   Elemento ele;
   ele.n = "teste";
-  char i[15] = 'aa';
-  while (insere (tab, i, ele.n) != 0) {
+  while (insere (tab, "hahaha", ele.n) != 0) {
   	Elemento* tmp = busca (tab, i);
-  	printf ("%s", tmp->n);
-  	i += 'a'
+  	printf ("%s\n", tmp->n);
   }
   return 0;
 }
