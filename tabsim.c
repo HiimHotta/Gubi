@@ -74,7 +74,7 @@ int main () {
   while (insere (tab, "hahaha", ele) != 0) {
   	printf ("debug2");
   	Elemento* tmp = busca (tab, "hahaha");
-  	printf ("%s\n", tmp->n);
+  	//printf ("%s\n", tmp->n);
   }
   return 0;
 }
