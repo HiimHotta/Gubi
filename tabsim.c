@@ -1,19 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "elemento.h"
+#include "tabsim.h"
 
-typedef struct {
-  char* key;
-  Elemento* val;
-} Cell;
-
-typedef struct {
-  Cell* tab;
-  int tam;
-} TabSim;
-
-//converte para int a string, ideia : agilizar a busca
 unsigned convert (char* s, int tam) {
    unsigned h = 0;
    for (int i = 0; s[i] != '\0'; i++) 
@@ -27,28 +16,24 @@ TabSim cria (int tam) {
   tmp.tam = tam;
   for (int i = 0; i < tam; i++) {
   	tmp.tab[i].key = NULL;
-  	tmp.tab[i].val = NULL;
   }
   return tmp;
 }
 
-/*se a posicao estiver vazia, pode inserir, se */
-/*nao tiver, retorna falso                     */
 int insere(TabSim t, char *n, Elemento *val) {
   unsigned index = convert (n, t.tam);
   if (t.tab[index].key == NULL) {
-  	printf ("debug");
-  	strcpy (t.tab[index].key, n);
+    t.tab[index].key = n;
+    t.tab[index].val = val;
   	return 1;
   }
   return 0;
 }
 
-//destroi tabela t
 void destroi (TabSim t) {
   free (t.tab);
   t.tab = NULL;
-  t.tam = 0;
+  //t.tam = NULL;
 }
 
 Elemento* busca(TabSim t, char *n) {
@@ -59,13 +44,14 @@ Elemento* busca(TabSim t, char *n) {
   return NULL;
 }
 
-/*se a posicao estiver vazia, pode inserir, se */
-/*nao tiver, retorna falso (0)                 */
 int retira(TabSim t, char *n) {
   unsigned index = convert (n, t.tam);
   if (t.tab[index].key != NULL) 
-  	if (strcmp (t.tab[index].key, n) == 0)
+  	if (strcmp (t.tab[index].key, n) == 0) {
+      t.tab[index].key = NULL;
+      t.tab[index].val = NULL;
   		return 1;
+    }
   return 0;
 }
 
@@ -75,10 +61,31 @@ int main () {
   ele = malloc (sizeof (Elemento));
   ele->n[0] = 'a';
   printf("%s\n", ele->n);
-  while (insere (tab, "hahaha", ele) != 0) {
-  	printf ("debug2");
-  	Elemento* tmp = busca (tab, "hahaha");
-  	printf ("%s\n", tmp->n);
-  }
+
+  //teste insere
+  int x = insere (tab, "haha", ele);
+  if (x != 0)
+    printf ("%s\n", tab.tab[7].val);
+
+  //teste busca
+  Elemento *tmp = busca (tab, "haha");
+  printf ("B:%s\n", tmp->n);
+
+  //teste retira
+  int y = retira (tab, "haha");
+  //se descomentar vai dar falha de segmentacao
+  //pq nao há nada na posicao 7
+  //printf ("%s\n", tab.tab[7].val);
+
+  destroi (tab);
+  free (ele);
+
+  /* Aventure-se a fazer um teste melhor HAHA */
+
+  //while (insere (tab, "hahaha", ele) != 0) {
+  //	printf ("debug2");
+  //	Elemento* tmp = busca (tab, "hahaha");
+  //	printf ("%s\n", tmp->n);
+  //}
   return 0;
 }
