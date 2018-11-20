@@ -1,62 +1,131 @@
-/* Caso haja alguma falha de compilacao com tmp->val tente substituir por
-// tmp.val, ou seja, alternar de . para "->" e o inverso.
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
-#include "lista.h" //nao lembro se eh esse msm
+#include <string.h>
+#include "lista.h"
 
-Lista cria () {
+Lista criaL () {
   Lista tmp;
   tmp.cabec = malloc (sizeof (Elo));
+  tmp.cabec->val = NULL;
   tmp.cabec->next = NULL;
+  //tmp.cabec = NULL;
   return tmp;
 }
 
-void destroi(Lista l) {
-  Lista p = l;
-  while (p != NULL) {
-
-  }
+//considera q esta passando a referencia da cabeca
+Boolean endList (Lista l) {
+  if (l.cabec->next == NULL)
+    return True;
+  return False;
 }
 
-Lista insere(Lista l, Elemento* val) {
-  Lista aux = l, tmp = cria ();
-  tmp->val = val;
-  while (l->next != NULL) {
-
-  }
+void* peek (Lista l) {
+  return l.cabec->val;
 }
 
-/*Busca pela lista inteira, enquanto houver p.prox continua procurando
-//se nao tiver, retorna NULL                                          */
-Elemento* busca(Lista l, char* n) {
-  Lista p = l; int i = 0;
-  while (p != NULL && i < 80) {
-    if (p->val.n[i] != n[i++]) {
-      p = p->next;
-      i = 0;
+void destroiL (Lista l) {
+  if (!endList (l)) {
+    Elo *lixo = l.cabec->next;
+    while (lixo != NULL) {
+      l.cabec->next = lixo->next;
+      free (lixo);
+      lixo = l.cabec->next;
     }
   }
-  return p.val.n;
+  free (l.cabec);
+  l.cabec = NULL;
 }
 
-Elemento* buscaR (Lista l, char* n) {
-  if (l == NULL) return NULL;
-  while (l->val.n[i] == n[i++])
-  if (i == 80) return l->val.n;
-  return buscaR (l->prox, n);
+Lista insereL (Lista l, void* val) {
+  Lista aux = l;
+  Elo *tmp = malloc (sizeof (Elo));
+  tmp->val = val; tmp->next = NULL;
+
+  while (aux.cabec->next != NULL)
+    aux.cabec = aux.cabec->next;
+
+  aux.cabec->next = tmp;
+
+  return aux;
 }
 
-Elemento* retira(Lista l, Elemento* val) {
+void* retiraL (Lista ant, Lista atual) {
+  void *aux = atual.cabec->val;
 
+  ant.cabec->next = atual.cabec->next;
+  free (atual.cabec);
+
+  return aux;
 }
 
-int main () {
-  Lista aux = cria ();
-  aux.cabec->val = malloc (sizeof (Elemento));
-  aux.cabec->val->n[0] = 'a';
-  aux.cabec->val->n[1] = 'b';
-  printf ("%c %c \n", aux.cabec->val->n[0], aux.cabec->val->n[1]);
-  return 0;
+
+ElementoAntigo* buscaElementoAntigo (Lista l, ElementoAntigo *val) {
+  Lista aux = l;
+
+  //se tah olhando pra cabeca, tem q olhar pro prox
+  if (aux.cabec->val == NULL && (aux.cabec->next)->val != NULL)
+    aux.cabec = aux.cabec->next;
+
+  while (aux.cabec != NULL) {
+    if (compareElementoAntigo (aux.cabec->val, val) == 1)
+      return aux.cabec->val;
+    aux.cabec = aux.cabec->next;
+  }
+  return NULL;
+}
+
+ElementoAntigo* retiraElementoAntigo (Lista l, ElementoAntigo *nome) {
+  ElementoAntigo *aux = NULL;
+  Elo *p, *q;
+  p = l.cabec;
+  q = l.cabec->next;
+  while (q != NULL && q->val != nome) {
+    p = q;
+    q = q->next;
+  }
+  if (q != NULL) {
+    aux = q->val;
+    p->next = q->next;
+    free (q);
+  }
+  return aux;
+}
+
+
+void testeL () {
+  Lista aux = criaL ();
+
+  ElementoAntigo *E = malloc (sizeof (ElementoAntigo));
+  strcpy (E->n, "gatinhos_mortos");
+  ElementoAntigo *E2 = malloc (sizeof (ElementoAntigo));
+  strcpy (E2->n, "haha");
+
+  //teste insere
+  aux = insereL (aux, E);
+  insereL (aux, E2);
+
+  //teste ateh o fim da lista
+  int i = 0; Lista tmp = aux;
+  while (tmp.cabec != NULL){
+    printf ("Elemento %d: %s\n", i, nameAntigo (tmp.cabec->val));
+    tmp.cabec = tmp.cabec->next;
+    i++;
+  }
+
+  //Teste busca
+  printf ("\nBusca 1: %s\n", nameAntigo (buscaElementoAntigo (aux, E)));
+  printf ("Busca 2: %s\n\n", nameAntigo (buscaElementoAntigo (aux, E2)));
+
+  //teste retiraElemento
+  printf ("Retira: %s\n\n", nameAntigo (retiraElementoAntigo (aux, E2)));
+
+  i = 0; tmp = aux;
+  while (tmp.cabec != NULL){
+    printf ("Elemento %d: %s\n", i, nameAntigo (tmp.cabec->val));
+    tmp.cabec = tmp.cabec->next;
+    i++;
+  }
+
+  destroiL (aux);
+  free  (E); free (E2);
 }

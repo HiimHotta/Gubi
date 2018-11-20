@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "elemento.h"
+//#include "lista.h"
 
 typedef struct {
-  char *key;
-  Elemento *val;
+  Lista key;
+  Lista val;
 } Cell;
 
 typedef struct {
@@ -13,25 +13,30 @@ typedef struct {
   int tam;
 } TabSim;
 
-//converte para int a string, ideia : agilizar a busca
+//converte para int a string (modulo tamanho da tabela), ideia : agilizar a busca
+//e insercao, quando usados numeros primos menores a chance de colisoes na tabela
+//e listas "GIGANTES"
 unsigned convert (char* s, int tam);
 
-//cria n Cell
-TabSim cria (int tam);
+//cria n Cell's
+TabSim criaTS (int tam);
 
-/*se a posicao estiver vazia, pode inserir, se */
-/*nao tiver, retorna falso                     */
-int insere(TabSim t, char *n, Elemento *val);
+// Insere na Lista ligada de CHAVES (KEY) o valor n e na lista de VALORES (VAL)
+//insere val.
+int insereTS (TabSim t, char *n, void *val);
 
-//destroi tabela t
-void destroi (TabSim t);
+//destroi tabela t, mas NAO ELIMINA OS ELEMENTOS NELA
+void destroiTS (TabSim t);
 
-/*busca pela chave n, se achar retorna o elemento */
-/* senao, retorna NULL                            */
-Elemento* busca(TabSim t, char *n);
+//Busca na posicao convert (n) ateh o final da lista, se nao achar retorna NULL
+void* buscaTS (TabSim t, char *n);
 
-/*se a posicao estiver vazia, pode tirar, se */
-/*nao tiver, retorna falso (0)                 */
-int retira(TabSim t, char *n);
+//Busca e retira o elemento com CHAVE(KEY) n
+int retiraTS (TabSim t, char *n);
 
-//int main ();
+//Teste da funcao, output:
+//Insere: 1
+//Busca: testeTS
+//Retira: 1
+//Busca: (null)
+void testeTS ();
