@@ -20,7 +20,7 @@ void moveP (Player *p, Elemento *local) {
     p->local = local;
 
   else 
-  	printf ("Erro ao mudar de local\n");
+  	printf ("Erro vc nao quer ir para um local\n");
 }
 
 int adicionaInventario (Player *p, Elemento *ele) {
@@ -30,7 +30,7 @@ int adicionaInventario (Player *p, Elemento *ele) {
   	while (i < p->MAXInventario && p->inventario[i] != NULL && p->inventario[i] == ele)
   	  i++;
     
-    if (i < p) {
+    if (i < p->MAXInventario) {
       p->inventario[i] = ele;
       return 1;
     }
@@ -47,7 +47,7 @@ Elemento* retiraInventario (Player *p, Elemento *ele) {
   while (i < p->MAXInventario && p->inventario[i] != NULL && p->inventario[i] == ele)
   	i++;
 
-  if (i < p) 
+  if (i < p->MAXInventario) 
   	return p->inventario[i];
 
   else 
