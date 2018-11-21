@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "elementoAntigo.c"
+#include "lista.c"
+#include "tabsim.c"
+#include "elemento.c"
 #include "player.h"
 
 void criaP (Player *p, char *nome, int MAXInventario, int TabAcoes, Elemento *local) {
@@ -26,7 +30,7 @@ void moveP (Player *p, Elemento *local) {
 int adicionaInventario (Player *p, Elemento *ele) {
   if (!ehLugar (ele)) { 
   	//iterador
-  	i = 0;
+  	int i = 0;
   	while (i < p->MAXInventario && p->inventario[i] != NULL && p->inventario[i] == ele)
   	  i++;
     
@@ -58,4 +62,8 @@ void destroiP (Player *p) {
   destroiTS (p->acoes);
   free (p->inventario);
   free (p);
+}
+
+void testeP () {
+  //teste player
 }
