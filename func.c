@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "elementoAntigo.c"
-#include "lista.c"
-#include "tabsim.c"
-#include "elemento.c"
+
 //AÇÕES
 //CRITERIO DE POSSIBILIDADE DE UMA ACAO:  eh se o elemento estah VISIVEL
 
@@ -79,7 +76,7 @@ int quebrar (Elemento *e1, Elemento *e2) {
   return -1;
 }
 
-int main(){
+void testeFunc (){
   /*
   printf("COMPUTADOR\n");
   Elemento *e1 = malloc(sizeof(Elemento));

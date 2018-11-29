@@ -1,0 +1,33 @@
+CC = gcc
+#CFLAGS=-W -Wall -ansi -pedantic -std=c99
+CFLAGS = -std=c99
+
+.PHONY: all
+
+all: game
+
+game: tabsim.o elemento.o main.o
+	$(CC) -o game lista.o tabsim.o elemento.o main.o -lm $(CFLAGS)
+main.o: main.c
+	$(CC) -c main.c tabsim.c elemento.c lista.c $(CFLAGS)
+tabsim.o: tabsim.c
+	$(CC) -c tabsim.c $(CFLAGS)
+elemento.o: elemento.c lista.c
+	$(CC) -c elemento.c $(CFLAGS)
+clean:
+		rm -rf *.o *~
+mrproper: clean
+		rm -rf game
+
+
+#	all : teste
+
+		teste : arp_discover.o arp_poisoning.o
+		    gcc -o $@ $^
+
+		%.o : %.c
+		     gcc -o $@ $< -c
+
+		arp_discover.o : arp_discover.h
+
+		arp_poisoning.o : arp_discover.h
