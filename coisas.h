@@ -1,7 +1,9 @@
 /* Parte específica de Objeto */
 typedef struct {
   short int ativo;
-  short int visivel;
+  short int *especial; //OPCOES ESPECIAIS, EX:CADEADO, especial [0] = 1 se
+                         //cadeado tah fechado ou 0 se cadeado estah aberto
+                         //definir um vetor de opcoes
 } Objeto;
 
 
@@ -16,12 +18,14 @@ typedef struct elemento {
   char *longa;
   char *curta;
   symrec *cont;
+  symrec *acoes;
   int tipo;
   union {
 	  Objeto obj;
 	  Lugar lug;
     char *adj;
   } Det;						/* detalhe */
+  short int visivel;
 } Elemento;
 
 

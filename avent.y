@@ -125,7 +125,7 @@ obj: OBJ    { $$ = $1;}
    | LUGAR  { $$ = $1;}
    | ADJETIVO { $$ = $1;}
 
-dir: NORTE	  { puts ("norte"); $$ = 0;}
+dir: NORTE	{ puts ("norte"); $$ = 0;}
 	 | SUL	  { puts ("sul");   $$ = 1;}
 	 | LESTE  { puts ("leste"); $$ = 2;}
 	 | OESTE  { puts ("oeste"); $$ = 3;}
