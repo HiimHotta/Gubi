@@ -4,7 +4,8 @@
 int yyparse();
 symrec* init_table();
 int timer = 180;
-
+int Life = 200;
+int flag = 0;
 int main()
 {
   /* Monta o mundo */
@@ -19,17 +20,20 @@ int main()
 
   printf ("A  urgência  está o incomodando e a premonição de que algo terrível está para\n"
           "acontecer  não o abandona. Você sente que é uma questão de vida ou morte sair\n"
-          "deste local em 3 horas.\n\n");
+          "deste local em 3 horas. Você precisa sair, pois você está muito nervoso e com fome. \n\n");
 
   printf ("Tempo restante: 3h : 00min \n\n");
 
-
   /* Que comece o jogo */
-  while (yyparse() && timer > 0) {
+  while (yyparse() && timer > 0 && Life > 0 ) {
     timer -= 5;
-
+    Life  -= 5;
+    if(!getsym(sym_table,"pudim") && flag == 0){
+      Life += 80;
+      flag = 1;
+    }
     if (timer == 120)
-      printf ("Apresse-se, não temos muito tempo!"
+      printf ("Apresse-se, não temos muito tempo!""Sua fome esta aumentando !!!"
               "Tempo restante: 2h : 00min \n\n");
 
     else if (timer == 60)
@@ -40,7 +44,7 @@ int main()
       printf ("Não quero nem ver o que vai acontecer!!! (Brincadeira, só tô aqui pra isso)"
               "Tempo restante: 0h : 30min \n\n");
     else
-      printf ("Tempo restante: %dh : %dmin\n\n", timer / 60, timer % 60);
+      printf ("Tempo restante: %dh : %dmin | VIDA : %d \n\n", timer / 60, timer % 60, Life);
 
   }
 
