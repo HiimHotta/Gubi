@@ -11,10 +11,10 @@ symrec *inventario = (symrec *) 0; /* material com o aventureiro */
 Elemento *Posic    = (Elemento *) 0; /* Posição atual */
 Elemento **invent;
 
-/* Objetos  */
+//Objetos 
 //QUARTO
 Elemento quarto = {"Quarto", "Seu habitáculo. Na parede sul há uma CAMA king-size e uma MESA DE CABECEIRA com um ABAJUR e a assistente ALEXA. Na parede norte há uma TELEVISÃO e a saída para o hall. A parede oeste tem a porta do banheiro.",
-                  "Na parede oposta há uma TELEVISÃO, desligada. Ao seu lado está a MESA DE CABECEIRA, com um ABAJUR em forma de cifrão e ALEXA, essa companheira de todas as horas. Há uma porta a oeste que leva ao banheiro e uma porta ao norte que conduz ao hall.",
+                  "Você acorda em sua suíte presidencial, mas algo está errado, muito errado. Existe qualquer coisa de anti-natural e desumano em despertar por iniciativa própria, e não pelo quarteto de cordas executando uma peça de Mozart precisamente às 08:00. E onde estão o chef para apresentar o menu matinal, e Jarbas com os jornais do dia? Na parede oposta há uma TELEVISÃO, desligada. Ao seu lado está a MESA DE CABECEIRA, com um ABAJUR em forma de cifrão e ALEXA, essa companheira de todas as horas. Há uma porta a oeste que leva ao banheiro e uma porta ao norte que conduz ao hall.",
                   NULL, NULL, LUGAR, .Det.lug.Saidas =  {NULL, NULL, NULL, NULL, NULL,NULL}, 1};
 
 //OBJETOS QUARTO
@@ -47,7 +47,7 @@ Elemento banheiro = {"Banheiro", "Esquece o resto, tem um remedinho ali, vamos v
                      NULL, NULL, LUGAR, .Det.lug.Saidas =  {NULL, NULL, NULL, NULL, NULL,NULL}, 1};
 
 //OBJETOS BANHEIRO
-Elemento tarjapreta = {"tarja Preta", "Medicação obtida estritamente dentro dos limites da lei",
+Elemento tarjapreta = {"tarjapreta", "Medicação obtida estritamente dentro dos limites da lei",
                      "A claridade do Sol alojada em pequenos comprimidos para ser consumida religiosamente no início de cada dia",
                       NULL, NULL, OBJ, .Det.obj = {1, NULL}, 1};
 
@@ -69,7 +69,7 @@ Elemento estufa = {"estufa", "Estimado Barão. Que Deus o tenha! Talvez o últim
 
 
 //BIBLIOTECA
-Elemento biblioteca = {"Biblioteca", "No centro da sala há uma escrivaninha com um LIVRO aberto. Ao lado há uma ESTÁTUA. As paredes são cobertas de ESTANTES. A leste está a porta do Hall.",
+Elemento biblioteca = {"Biblioteca", "No centro da sala há uma escrivaninha com um LIVRO aberto. Ao lado há uma ESTÁTUA. As paredes são cobertas de ESTANTES. A oeste está a porta do Hall.",
                       "As paredes são preenchidas, do chão ao teto, com ESTANTES cheias de livros. Entre eles existem algumas primeiras edições de autores famosos, e algumas destas estão assinadas pelos próprios autores. Não que você saiba dizer quais, evidentemente - nunca leu um livro na vida. Mas a existência de uma biblioteca bem estocada é exigência de primeira ordem na construção de uma mansão de calibre, e existem serviços especializados em reunir exemplares com aparência de grande antiguidade e valor. Você examina, com certa curiosidade, essa terra incognita. Há uma escrivaninha com um LIVRO aberto, e uma ESTÁTUA grega em um canto. A leste está a porta de volta para o Hall.",
                       NULL, NULL, LUGAR, .Det.lug.Saidas =  {NULL, NULL, NULL, NULL, NULL,NULL}, 1};
 
@@ -95,7 +95,6 @@ Elemento pudim = {"pudim", "Asqueroso! Mas extremamente rico em ômega 3", "As v
 
 Elemento faca = {"faca", "Uma faca dessas corta qualquer coisa com facilidade. Qualquer coisa", "Uma faca de grande porte, pontiaguda e afiada. É a isso que chegamos, então? É este o fim?",
                 NULL, NULL, OBJ, .Det.obj = {1, NULL}, 1};
-
 
 
 /* Objetos  */
@@ -137,13 +136,13 @@ int presente (char *nome) {
 //Seta Saidas
 void SetLugar () {
   quarto.Det.lug.Saidas[0] = &hall;
-  quarto.Det.lug.Saidas[2] = &banheiro;
+  quarto.Det.lug.Saidas[3] = &banheiro;
 
-  banheiro.Det.lug.Saidas[3] = &quarto;
+  banheiro.Det.lug.Saidas[2] = &quarto;
 
   hall.Det.lug.Saidas[1] = &quarto;
-  hall.Det.lug.Saidas[2] = &cozinha;
-  hall.Det.lug.Saidas[3] = &biblioteca;
+  hall.Det.lug.Saidas[3] = &cozinha;
+  hall.Det.lug.Saidas[2] = &biblioteca;
 
   cozinha.Det.lug.Saidas[2] = &hall;
 
