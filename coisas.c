@@ -11,7 +11,7 @@ symrec *inventario = (symrec *) 0; /* material com o aventureiro */
 Elemento *Posic    = (Elemento *) 0; /* Posição atual */
 Elemento **invent;
 
-//Objetos 
+//Objetos
 //QUARTO
 Elemento quarto = {"Quarto", "Seu habitáculo. Na parede sul há uma CAMA king-size e uma MESA DE CABECEIRA com um ABAJUR e a assistente ALEXA. Na parede norte há uma TELEVISÃO e a saída para o hall. A parede oeste tem a porta do banheiro.",
                   "Você acorda em sua suíte presidencial, mas algo está errado, muito errado. Existe qualquer coisa de anti-natural e desumano em despertar por iniciativa própria, e não pelo quarteto de cordas executando uma peça de Mozart precisamente às 08:00. E onde estão o chef para apresentar o menu matinal, e Jarbas com os jornais do dia? Na parede oposta há uma TELEVISÃO, desligada. Ao seu lado está a MESA DE CABECEIRA, com um ABAJUR em forma de cifrão e ALEXA, essa companheira de todas as horas. Há uma porta a oeste que leva ao banheiro e uma porta ao norte que conduz ao hall.",
@@ -185,6 +185,28 @@ void SetObj () {
   biblioteca.cont = putsym (biblioteca.cont, "estante", OBJ, &estante);
   biblioteca.cont = putsym (biblioteca.cont, "estatua", OBJ, &estatua);
   biblioteca.cont = putsym (biblioteca.cont, "livro", OBJ, &livro);
+}
+
+void comer (Elemento *o1, Elemento *o2) {
+
+  if (presente ("pudim") == 2) {
+	if (getsym (inventario, "pudim")) {
+	  inventario = popsym (inventario, "pudim");
+	  Posic->cont = popsym (Posic->cont, "pudim");/* Posição atual */
+
+    pudim.Det.obj.ativo = 0;
+    pudim.visivel = 0;
+    popsym(sym_table, "pudim");
+	  puts ("Sua Fome Passou");
+	  return;
+	}
+	else {
+	  puts ("BRRRrr, que fome, mas eu aguento");
+	}
+  }
+  else{
+    puts ("comer o que ?");
+  }
 }
 
 
@@ -444,6 +466,7 @@ struct initfunc lfunc[] = {
   {  "berre",    Gritar },
   {  "corrija", Corrigir },
   {"dicionario", Dicionario},
+  {"coma",comer},
   {0, 0}
 };
 
@@ -527,6 +550,7 @@ void SetVerbo () {
   livro.cont   = putsym (livro.cont   ,       "pegue",   VERBO, Pegar);
   estante.cont = putsym (estante.cont ,       "olhe",    VERBO, Olhar );
   pudim.cont   = putsym (pudim.cont   ,       "pegue",   VERBO, Pegar);
+  pudim.cont   = putsym (pudim.cont   ,       "coma",    VERBO, comer);
   estatua.cont = putsym (estatua.cont ,       "olhe",    VERBO, Olhar );
   tarjapreta.cont = putsym (tarjapreta.cont,  "pegue",   VERBO, Pegar);
   //Alexa.cont = putsym (Alexa.cont ,    "",    VERBO, );
