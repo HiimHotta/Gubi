@@ -9,11 +9,12 @@
 symrec *sym_table  = (symrec *) 0; /* Tabela de símbolos global */
 symrec *inventario = (symrec *) 0; /* material com o aventureiro */
 Elemento *Posic    = (Elemento *) 0; /* Posição atual */
+Elemento **invent;
 
 /* Objetos  */
 //QUARTO
 Elemento quarto = {"Quarto", "Seu habitáculo. Na parede sul há uma CAMA king-size e uma MESA DE CABECEIRA com um ABAJUR e a assistente ALEXA. Na parede norte há uma TELEVISÃO e a saída para o hall. A parede oeste tem a porta do banheiro.",
-                  "Você acorda em sua suíte presidencial, mas algo está errado, muito errado. Existe qualquer coisa de anti-natural e desumano em despertar por iniciativa própria, e não pelo quarteto de cordas executando uma peça de Mozart precisamente às 08:00. E onde estão o chef para apresentar o menu matinal, e Jarbas com os jornais do dia? Na parede oposta há uma TELEVISÃO, desligada. Ao seu lado está a MESA DE CABECEIRA, com um ABAJUR em forma de cifrão e ALEXA, essa companheira de todas as horas. Há uma porta a oeste que leva ao banheiro e uma porta ao norte que conduz ao hall.",
+                  "Na parede oposta há uma TELEVISÃO, desligada. Ao seu lado está a MESA DE CABECEIRA, com um ABAJUR em forma de cifrão e ALEXA, essa companheira de todas as horas. Há uma porta a oeste que leva ao banheiro e uma porta ao norte que conduz ao hall.",
                   NULL, NULL, LUGAR, .Det.lug.Saidas =  {NULL, NULL, NULL, NULL, NULL,NULL}, 1};
 
 //OBJETOS QUARTO
@@ -175,7 +176,16 @@ void SetObj () {
 
   //hall
   hall.cont = putsym (hall.cont, "espada", OBJ, &espada);
+  hall.cont = putsym (hall.cont, "estufa", OBJ, &estufa);
 
+  //COZINHA
+  cozinha.cont = putsym (cozinha.cont, "pudim", OBJ, &pudim);
+  cozinha.cont = putsym (cozinha.cont, "faca", OBJ, &faca);
+
+  //BIBLIOTECA
+  biblioteca.cont = putsym (biblioteca.cont, "estante", OBJ, &estante);
+  biblioteca.cont = putsym (biblioteca.cont, "estatua", OBJ, &estatua);
+  biblioteca.cont = putsym (biblioteca.cont, "livro", OBJ, &livro);
 }
 
 
@@ -455,12 +465,20 @@ struct initobj lobjs[] = {
   {"hamster", &hamster},
   {"prova", &prova},
   {"vapor", &vapor},
-  {    "tv"   ,     &tv   },
-  {   "mesa"  ,    &mesa  },
-  { "controle",  &controle},
-  {  "Alexa"  ,   &Alexa  },
-  {  "abajur" ,   &abajur },
-  {   "cama"  ,    &cama  },
+  {    "tv"   ,      &tv     },
+  {   "mesa"  ,     &mesa    },
+  { "controle",   &controle  },
+  {  "Alexa"  ,    &Alexa    },
+  {  "abajur" ,    &abajur   },
+  {   "cama"  ,     &cama    },
+  {   "espada" ,   &espada   },
+  {  "estufa"  ,   &estufa   },
+  {   "pudim"  ,   &pudim    },
+  {    "faca"  ,    &faca    },
+  {   "livro"  ,    &livro   },
+  {   "estante",   &estante  },
+  {   "estatua",   &estatua  },
+  {"tarjapreta",  &tarjapreta},
   { 0, 0}
 };
 
@@ -472,10 +490,10 @@ struct initlug {
 
 /* Lista de lugares */
 struct initlug llugs[] = {
-  {"quarto",     &quarto},
-  {"hall",       &hall},
-  {"banheiro",   &banheiro},
-  {"cozinha",    &cozinha},
+  {  "quarto"  ,   &quarto  },
+  {   "hall"   ,    &hall   },
+  { "banheiro" ,  &banheiro },
+  { "cozinha"  ,  &cozinha  },
   {"biblioteca", &biblioteca},
   { 0, 0}
 };
@@ -503,6 +521,16 @@ void SetVerbo () {
   vapor.cont   = putsym (vapor.cont,   "pegue",   VERBO, PegarVapor);
   prova.cont   = putsym (prova.cont,   "corrija", VERBO, CorrigirProva);
   cama.cont    = putsym (cama.cont,   "pegue", VERBO, Pegar);
+
+  espada.cont  = putsym (espada.cont  ,       "pegue",   VERBO, Pegar);
+  estufa.cont  = putsym (estufa.cont  ,       "pegue",   VERBO, Pegar);
+  faca.cont    = putsym (faca.cont    ,       "pegue",   VERBO, Pegar);
+  livro.cont   = putsym (livro.cont   ,       "pegue",   VERBO, Pegar);
+  estante.cont = putsym (estante.cont ,       "olhe",    VERBO, Olhar );
+  pudim.cont   = putsym (pudim.cont   ,       "pegue",   VERBO, Pegar);
+  estatua.cont = putsym (estatua.cont ,       "olhe",    VERBO, Olhar );
+  tarjapreta.cont = putsym (tarjapreta.cont,  "pegue",   VERBO, Pegar);
+  //Alexa.cont = putsym (Alexa.cont ,    "",    VERBO, );
 }
 
 /* Inicializa a tabela de símbolos passada como argumento */
@@ -528,12 +556,10 @@ symrec*  init_table (symrec *sym_table) {
 
   /* Lista de lugares */
   for (i = 0; llugs[i].name != 0; i++)
-	  /* insere */
     ptr = putsym (ptr, llugs[i].name, LUGAR, llugs[i].lug);
 
     /* Lista de adjetivos */
   for (i = 0; lAdj[i].name != 0; i++)
-  	  /* insere */
       ptr = putsym (ptr, lAdj[i].name, ADJETIVO, lAdj[i].adj);
 
   SetLugar ();
